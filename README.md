@@ -1,1 +1,3 @@
-# 03_BullCowGame
+# Bull Cow Game!
+
+Bull Cow Game is set in a 3D world. You have a sign post which you can type into... to be continued...
