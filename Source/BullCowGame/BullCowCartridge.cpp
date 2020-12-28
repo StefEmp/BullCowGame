@@ -7,38 +7,36 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     SetupGame();
 
     PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
-    
-    PrintLine (TEXT("Welcome to Bull Cows!"));
-    PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
-    PrintLine (TEXT("Press tab to use the terminal!"));
-    PrintLine (TEXT("Type in your guess and press enter..."));
-    
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 {
-    ClearScreen();
     
-    
-    //checking PlayerGuess
-
-    if ( Input == HiddenWord) 
+   
+  
+    if (bGameOver)
     {
-       PrintLine (TEXT("You have won!"));
+        ClearScreen();
+        SetupGame();
     }
-
-    else
+    else   //else checking PlayerGuess
     {
+        if ( Input == HiddenWord) 
         {
-            if (Input.Len() != HiddenWord.Len()) // Len = length so we are comparing the length of the user input with the hidden word
+            PrintLine (TEXT("You have won!"));
+            EndGame();
+        }
+        else
+        {
+             if (Input.Len() != HiddenWord.Len()) // Len = length so we are comparing the length of the user input with the hidden word
             {
-                PrintLine (TEXT("The Hidden Word is %i characters long! Try again..."), HiddenWord.Len());
+                PrintLine (TEXT("The Hidden Word is %i characters long!\nYou have lost!"), HiddenWord.Len());
+                EndGame();
             }
-
-            PrintLine (TEXT("You have lost!"));
-            
         }
     }
+
+    
     //Check if Isogram
     //prompt to guess again
     //check if right number of characters
@@ -57,4 +55,19 @@ void UBullCowCartridge:: SetupGame()
 {
     HiddenWord = TEXT("cake"); 
     Lives = 4; 
+    bGameOver = false;
+   
+    PrintLine (TEXT("Welcome to Bull Cows!"));
+    PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
+    PrintLine (TEXT("Press tab to use the terminal!"));
+    PrintLine (TEXT("Type in your guess. \nPress enter to continue..."));
+    //bGameOver = false;
 }
+
+void UBullCowCartridge:: EndGame()
+{
+bGameOver = true;
+PrintLine(TEXT("Press enter to play again."));
+
+}
+
