@@ -9,10 +9,8 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     PrintLine (TEXT("Guess the 4 letter word!")); // we have a magic number will need to create a variable to manage number difference later
     PrintLine (TEXT("Press enter to continue..."));
 
-    //set up game
-    HiddenWord = TEXT("cake"); // set the HiddenWord
-
-    //set lives
+    SetupGame();//set up game
+   
 
     //prompt player for guess
 }
@@ -48,4 +46,10 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
     //press enter to play again?
     //check user input
     //PlayAgain or Quit
+}
+
+void UBullCowCartridge:: SetupGame() 
+{
+    HiddenWord = TEXT("cake"); 
+    Lives = 4; 
 }
