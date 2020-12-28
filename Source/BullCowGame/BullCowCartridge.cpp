@@ -37,6 +37,7 @@ void UBullCowCartridge:: SetupGame()
 //    PrintLine(TEXT("Character 1 of HW is: %c"), HW[1]);
 //    PrintLine(TEXT("Character 4 of HW is: %c"), HW[3]);
 //    HW;
+    IsIsogram(HiddenWord);
 }
 
 void UBullCowCartridge:: EndGame()
@@ -95,6 +96,11 @@ PrintLine(TEXT("Guess again, you have %i lives left"), Lives);
 
 bool UBullCowCartridge::IsIsogram(FString Word) const
 {
+    for (int32 Index = 0; Index < Word.Len(); Index++)
+    {
+        PrintLine(TEXT("%c"), Word[Index]);
+    }
+    
     // for each letter 
     // start at element [0]
     // compare against the next letter
