@@ -4,15 +4,15 @@
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
-    //welcome player
+    SetupGame();
+
+    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
+    
     PrintLine (TEXT("Welcome to Bull Cows!"));
-    PrintLine (TEXT("Guess the 4 letter word!")); // we have a magic number will need to create a variable to manage number difference later
-    PrintLine (TEXT("Press enter to continue..."));
-
-    SetupGame();//set up game
-   
-
-    //prompt player for guess
+    PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
+    PrintLine (TEXT("Press tab to use the terminal!"));
+    PrintLine (TEXT("Type in your guess and press enter..."));
+    
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -32,7 +32,7 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
         {
             if (Input.Len() != HiddenWord.Len()) // Len = length so we are comparing the length of the user input with the hidden word
             {
-                PrintLine (TEXT("The Hidden Word is 4 characters long!"));
+                PrintLine (TEXT("The Hidden Word is %i characters long! Try again..."), HiddenWord.Len());
             }
 
             PrintLine (TEXT("You have lost!"));
