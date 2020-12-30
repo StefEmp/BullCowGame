@@ -42,7 +42,7 @@ void UBullCowCartridge:: SetupGame()
     PrintLine (TEXT("You have %i lives."), Lives); 
     PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
     PrintLine (TEXT("Type in your guess.\nPress enter to continue..."));
-    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
+    // PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
  
 }
 
