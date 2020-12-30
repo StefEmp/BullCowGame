@@ -9,16 +9,12 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
     SetupGame();
-    PrintLine(TEXT("The number of possible words is %i"), Words.Num());
-    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
-    for (int32 Index = 0; Index < 10; Index++)
-    {
-        if (Words[Index].Len() >=4 && Words[Index].Len() <=8)
-        {
-        PrintLine(TEXT("%s"), *Words[Index]);
-        }
-    }
 
+    PrintLine(TEXT("The number of possible words is %i"), Words.Num());
+    PrintLine(TEXT("The number of valid words is: %i"), GetValidWords(Words).Num());
+    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
+    
+   
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -110,4 +106,23 @@ bool UBullCowCartridge::IsIsogram(FString Word) const
     }
 
     return true;
+}
+
+TArray<FString> UBullCowCartridge::GetValidWords(TArray<FString>WordList) const
+{
+     TArray<FString> ValidWords;
+    
+    for (int32 Index = 0; Index < WordList.Num(); Index++)
+    {
+        if (WordList[Index].Len() >=4 && WordList[Index].Len() <=8 && IsIsogram(WordList[Index]))
+        {
+            ValidWords.Emplace(WordList[Index]);
+        }
+        
+    }
+    return ValidWords;
+    // for (int32 Index = 0; Index < ValidWords.Num(); Index++)
+    // {
+    //     PrintLine(TEXT("%s"), *ValidWords[Index]);
+    // }
 }
