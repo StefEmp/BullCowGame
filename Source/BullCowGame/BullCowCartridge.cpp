@@ -1,5 +1,6 @@
 
 #include "BullCowCartridge.h"
+#include "HiddenWordList.h"
 
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
@@ -24,6 +25,7 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
 
 void UBullCowCartridge:: SetupGame() 
 {
+    
     HiddenWord = TEXT("cake"); 
     Lives = HiddenWord.Len(); 
     bGameOver = false;
