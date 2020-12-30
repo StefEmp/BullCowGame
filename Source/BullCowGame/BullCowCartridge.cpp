@@ -9,8 +9,13 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
     SetupGame();
-
+    PrintLine(TEXT("The number of possible words is %i"), Words.Num());
     PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
+    for (int32 Index = 0; Index < 5; Index++)
+    {
+        PrintLine(TEXT("%s"), *Words[Index]);
+    }
+
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -37,11 +42,6 @@ void UBullCowCartridge:: SetupGame()
     PrintLine (TEXT("You have %i lives."), Lives); 
     PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
     PrintLine (TEXT("Type in your guess.\nPress enter to continue..."));
-   
-//    const TCHAR HW[] = TEXT("cake");
-//    PrintLine(TEXT("Character 1 of HW is: %c"), HW[1]);
-//    PrintLine(TEXT("Character 4 of HW is: %c"), HW[3]);
-//    HW;
  
 }
 
@@ -91,14 +91,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess)
     //show the player Bulls and Cows
 PrintLine(TEXT("Guess again, you have %i lives left"), Lives);
 }
-    //check if lives > 0
-    // if yes GuessAgain
-    //Show Lives left
-    //if no show GameOver and HiddenWord?
-    //press enter to play again?
-    //check user input
-    //PlayAgain or Quit
-
+  
 bool UBullCowCartridge::IsIsogram(FString Word) const
 {
 
@@ -114,10 +107,4 @@ bool UBullCowCartridge::IsIsogram(FString Word) const
     }
 
     return true;
-  
-    // for each letter 
-    // start at element [0]
-    // compare against the next letter
-    // until we reach [Word.Len() -1]
-    // if any letters are the same return false.
 }
