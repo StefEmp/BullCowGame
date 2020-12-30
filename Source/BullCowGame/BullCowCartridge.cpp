@@ -32,7 +32,7 @@ void UBullCowCartridge:: SetupGame()
 {
     
     HiddenWord = Isograms[FMath::RandRange(0, Isograms.Num() -1)];
-    Lives = HiddenWord.Len(); 
+    Lives = HiddenWord.Len() * 2; 
     bGameOver = false;
    
     PrintLine (TEXT("Welcome to Bull Cows!"));
