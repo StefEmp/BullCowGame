@@ -11,9 +11,12 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     SetupGame();
     PrintLine(TEXT("The number of possible words is %i"), Words.Num());
     PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
-    for (int32 Index = 0; Index < 5; Index++)
+    for (int32 Index = 0; Index < 10; Index++)
     {
+        if (Words[Index].Len() >=4 && Words[Index].Len() <=8)
+        {
         PrintLine(TEXT("%s"), *Words[Index]);
+        }
     }
 
 }
