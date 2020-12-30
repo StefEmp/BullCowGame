@@ -7,6 +7,9 @@
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
+
+    FBullCowCount Count = {2, 3};
+    PrintLine(TEXT("Bulls = %i, Cows = %i"), Count.Bulls, Count.Cows);
     
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
@@ -88,10 +91,10 @@ void UBullCowCartridge::ProcessGuess(const FString& Guess)
     }
 
     //show the player Bulls and Cows
-    int32 Bulls, Cows;
-    GetBullCows(Guess, Bulls, Cows);
+    
+    FBullCowCount Score = GetBullCows(Guess);
 
-    PrintLine(TEXT("You have %i Bulls and %i Cows"), Bulls, Cows);
+    PrintLine(TEXT("You have %i Bulls and %i Cows"), Score.Bulls, Score.Cows);
     PrintLine(TEXT("Guess again, you have %i lives left"), Lives);
 }
   
@@ -128,27 +131,25 @@ TArray<FString> UBullCowCartridge::GetValidWords(const TArray<FString>& WordList
    
 }
 
-void UBullCowCartridge::GetBullCows(const FString& Guess, int32& BullCount, int32&CowCount) const
+FBullCowCount UBullCowCartridge::GetBullCows(const FString& Guess) const
 {
-    BullCount = 0;
-    CowCount = 0;
+    FBullCowCount Count;
 
-    //for every index  guess is same as index of the hideen word then the bullcount ++
-    // if not a bull was it a cow? if yes CoWCount ++
     for (int32 GuessIndex= 0; GuessIndex < Guess.Len(); GuessIndex++)
     {
         if (Guess[GuessIndex] == HiddenWord[GuessIndex])
         {
-            BullCount ++;
+            Count.Bulls++;
             continue;
         }
         for (int32 HiddenIndex = 0; HiddenIndex < HiddenWord.Len(); HiddenIndex++)
         {
             if (Guess[GuessIndex] == HiddenWord[HiddenIndex])
             {
-                CowCount ++;
+                Count.Cows++;
                 break;
             }
         }   
     }
+    return Count;
 }
