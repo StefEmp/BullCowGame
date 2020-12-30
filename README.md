@@ -4,6 +4,8 @@ Bull Cow Game is set in a 3D world. You have a sign post which you can type into
 
 The basic idea is you need to guess the word. The word will be an "Isogram" an Isogram is a word that does not have repeating letters. The game will let you know how many letters the word is. You start with a number of lives to figure out the word. Feel free to download the game, have a go and let me know what you think! 
 
+To run the game: Simply download the repo and load it up in Unreal!
+
 If you want to cheat, have a look in the 'BullCowCartridge.cpp' file and you may find a line of code you can uncomment to display the word! (Let's not make cheating tooooo easy!).
 
 I learnt about creating this game by following a C++ and Unreal Engine course on Udemy. If your interested in having a go at the course yourself, check it out here: https://www.udemy.com/course/unrealcourse/
