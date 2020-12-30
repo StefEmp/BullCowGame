@@ -77,6 +77,7 @@ void UBullCowCartridge::ProcessGuess(const FString& Guess)
     //remove a life
     PrintLine (TEXT("You have lost a life!"));         
     --Lives;   
+    
     if (Lives <= 0)
     {
         ClearScreen();
@@ -87,7 +88,11 @@ void UBullCowCartridge::ProcessGuess(const FString& Guess)
     }
 
     //show the player Bulls and Cows
-PrintLine(TEXT("Guess again, you have %i lives left"), Lives);
+    int32 Bulls, Cows;
+    GetBullCows(Guess, Bulls, Cows);
+
+    PrintLine(TEXT("You have %i Bulls and %i Cows"), Bulls, Cows);
+    PrintLine(TEXT("Guess again, you have %i lives left"), Lives);
 }
   
 bool UBullCowCartridge::IsIsogram(const FString& Word) const
@@ -121,4 +126,28 @@ TArray<FString> UBullCowCartridge::GetValidWords(const TArray<FString>& WordList
     }
     return ValidWords;
    
+}
+
+void UBullCowCartridge::GetBullCows(const FString& Guess, int32& BullCount, int32&CowCount) const
+{
+    BullCount = 0;
+    CowCount = 0;
+
+    //for every index  guess is same as index of the hideen word then the bullcount ++
+    // if not a bull was it a cow? if yes CoWCount ++
+    for (int32 GuessIndex= 0; GuessIndex < Guess.Len(); GuessIndex++)
+    {
+        if (Guess[GuessIndex] == HiddenWord[GuessIndex])
+        {
+            BullCount ++;
+            continue;
+        }
+        for (int32 HiddenIndex = 0; HiddenIndex < HiddenWord.Len(); HiddenIndex++)
+        {
+            if (Guess[GuessIndex] == HiddenWord[HiddenIndex])
+            {
+                CowCount ++;
+            }
+        }   
+    }
 }
