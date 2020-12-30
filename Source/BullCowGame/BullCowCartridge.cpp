@@ -3,18 +3,15 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 
+
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
+    
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
-    SetupGame();
-
-    PrintLine(TEXT("The number of possible words is %i"), Words.Num());
-    PrintLine(TEXT("The number of valid words is: %i"), GetValidWords(Words).Num());
-    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
     
-   
+    SetupGame();
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -33,7 +30,7 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
 void UBullCowCartridge:: SetupGame() 
 {
     
-    HiddenWord = TEXT("cake"); 
+    HiddenWord = GetValidWords(Words)[FMath::RandRange(0, GetValidWords(Words).Num() -1)];
     Lives = HiddenWord.Len(); 
     bGameOver = false;
    
@@ -41,6 +38,7 @@ void UBullCowCartridge:: SetupGame()
     PrintLine (TEXT("You have %i lives."), Lives); 
     PrintLine (TEXT("Guess the %i letter word!"), HiddenWord.Len()); 
     PrintLine (TEXT("Type in your guess.\nPress enter to continue..."));
+    PrintLine(TEXT("The HiddenWord is: %s."), *HiddenWord); // Debug Line (we can turn this on and off for testing) The * is used to reference to where the HiddenWord is stored in memory
  
 }
 
